@@ -1,0 +1,69 @@
+TRIg: a robust alignment tool for non-regular T-cell receptor and immunoglobulin sequences
+
+Sheng-­Jou Hung, Yi-Lin Chen, Chia-Hung Chu, Chuan-Chun Lee, Wan-Li Chen, Ya-Lan Lin, Min-Ching Lin, Chung-Liang Ho, Tsunglin Liu
+
+
+1. Installation
+--------------------------------------------------------------------------------
+TRIg is written in perl and requires MUMMER for initial alignments. Users must 
+install MUMMER, which can be obtained from http://mummer.sourceforge.net/. 
+TRIg are ready for use after decompressing the tarball as follows.
+--------------------------------------------------------------------------------
+
+> wget https://github.com/TLlab/trig/blob/master/trig-1.0.tar.gz
+> tar zxvf trig-1.0.tar.gz
+
+Then add the directory trig-1.0/bin to your $PATH. Also make sure that the folder
+containing the mummer commands is in the $PATH.
+
+
+2. Running program
+---------------------------------------------------------------------------------------------------------
+usage  : trig.pl [options] read.fa
+e.g.   : trig.pl -s human -g tcrb -o test read.fa
+
+option : -species  <str>  species name                 [human*, mouse] (*default)
+         -gene     <str>  immune genes                 [tcra, tcrb*, tcrd, tcrg, igh, igl, igk]
+         -outdir   <str>  output directory name        [output*]
+         -minmatch <int>  minimal match of nucmer      [15*]
+         -breaklen <int>  breaklen of nucmer           [15*]
+         -thread   <int>  number of processors         [2*]
+         -int      <int>  keep intermediate files      [0*, 1]
+
+---------------------------------------------------------------------------------------------------------
+
+To run TRIg on sample data, use the following sample command when in the TRIg folder.
+> trig.pl -s human -g tcrb -t 6 -o test data/SRR941034_l100.fa
+
+Note: Because the genomic loci of TCRA and TCRD overlap, we use the same reference 
+      sequence and VDJ annotations of the two genes when either gene is specified.
+
+
+3. Format of output files
+---------------------------------------------------------------------------------------------------------
+log: documentation of parameters and run time
+
+final.delta: alignments in delta format
+
+final.vdjdelta:
+(1) read ID
+(2) VDJ annotation
+    Three symbols (~,:) are used to indicate recombination.
+    "~" : a read segment stretching from one region to another, e.g., "TRBJ2-2P~TRBJ2-3".
+    "," : a read segment aligned equally well to two regions, e.g., "TRBV6-2,TRBV6-3".
+    ":" : concatenation of two regions, e.g., "TRBV27:TRBJ1-6"
+(3) annotation (with orientaion and exon information) of all aligned segments (from query start to end)
+(4) alignments in a modified delta format
+
+final.vjcdr3:
+(1) read ID
+(2) VJ combination
+(3) CDR3 sequences
+---------------------------------------------------------------------------------------------------------
+
+
+4. Sample data
+---------------------------------------------------------------------------------------------------------
+In the data folder, we put the two human TR sequence files and the one mouse IGH sequence file, and used 
+the files in the paper as sample data for users to test TRIg.
+---------------------------------------------------------------------------------------------------------
