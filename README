@@ -10,7 +10,7 @@ install MUMMER, which can be obtained from http://mummer.sourceforge.net/.
 TRIg are ready for use after decompressing the tarball as follows.
 --------------------------------------------------------------------------------
 
-> wget https://github.com/TLlab/trig/blob/master/trig-1.0.tar.gz
+> wget https://github.com/TLlab/trig/raw/master/trig-1.0.tar.gz
 > tar zxvf trig-1.0.tar.gz
 
 Then add the directory trig-1.0/bin to your $PATH. Also make sure that the folder
